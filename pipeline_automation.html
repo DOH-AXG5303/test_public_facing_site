@@ -1,0 +1,878 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Tools for Data Pipeline Automation &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pipeline_automation';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    Tools for Data Pipeline Automation
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpipeline_automation.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/pipeline_automation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tools for Data Pipeline Automation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tools for Data Pipeline Automation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#git-bash">Git Bash</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-install-git-and-bash">How to Install Git and Bash</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-install-github-desktop">How to Install Github Desktop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github-repositories">Github Repositories</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-markdown">standard Markdown</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-local-repository-to-github">Add a Local Repository to Github</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-a-repository-from-github">Clone a Repository from Github</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#miniconda">Miniconda</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-install-miniconda">How to Install Miniconda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-create-a-conda-virtual-environment">How to Create a Conda Virtual Environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-yaml-file">Create a YAML file</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-r-virtual-environment">Example 1: R virtual environment</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-python-virtual-environment">Example 2: Python virtual environment</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-virtual-environment-from-a-yaml-file">Create a Virtual Environment From a YAML file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#running-code-within-an-environment">Running Code Within an Environment</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-a-batch-file-to-run-code-in-an-environment">Use a Batch File to Run Code in an Environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-batch-file">Create a batch file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-run-your-batch-file">How to run your batch file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-task-scheduler-to-run-your-batch-file-automatically">Use Task Scheduler to Run Your Batch File Automatically</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix">Appendix</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-lab">Jupyter Lab</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-jupyter-lab-within-an-environment">Launch Jupyter Lab Within an Environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-multiple-environments-within-one-jupyter-lab-instance">Use multiple environments within one Jupyter lab instance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#faster-loading-of-r-environments">Faster loading of R environments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tools-for-data-pipeline-automation">
+<h1>Tools for Data Pipeline Automation<a class="headerlink" href="#tools-for-data-pipeline-automation" title="Permalink to this heading">#</a></h1>
+<p>Our Team uses a variety of tools to automate data pipelines. This document will cover four main tools: Git Bash, Github Desktop, Miniconda, Task Scheduler and how these programs are used together to manage virtual environments and version control and automate data pipelines.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="table-of-contents">
+<h1>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading">#</a></h1>
+<ol class="arabic simple">
+<li><p><a href="#Git-Bash">Git Bash</a><br />
+1.a. <a href="#How-to-Install-Git-and-Bash">How to Install Git and Bash</a><br />
+2.a. <a href="#How-to-Install-Github-Desktop">How to Install Github Desktop</a><br />
+3.a. <a href="#Github-Repositories">Github Repositories</a></p></li>
+<li><p><a href="#Miniconda">Miniconda</a><br />
+2.a. <a href="#How-to-Install-Miniconda">How to Install Miniconda</a><br />
+2.b. <a href="#How-to-Create-a-Conda-Virtual-Environment">How to Create a Conda Virtual Environment</a></p></li>
+<li><p><a href="#Running-Code-Within-an-Environment">Running Code Within an Environment</a><br />
+3.a. <a href="#Use-a-Batch-File-to-Run-Code-in-an-Environment">Use a Batch File to Run Code in an Environment</a></p></li>
+<li><p><a href="#Appendix">Appendix</a><br />
+5.a. <a href="#Jupyter-Lab">Jupyter Lab</a></p></li>
+</ol>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="git-bash">
+<h1>Git Bash<a class="headerlink" href="#git-bash" title="Permalink to this heading">#</a></h1>
+<p>Git Bash is a Unix shell emulator that allows a user to execute bash commands in a windows environment as if it were a linux machine. In addition, Git Bash provides git command line experience in the windows operating system. For example, a repository can be cloned by simply typing “git clone url_to_github” in the shell prompt. For more information, follow <a class="reference external" href="https://www.geeksforgeeks.org/working-on-git-bash/">this link</a>.</p>
+<section id="how-to-install-git-and-bash">
+<h2>How to Install Git and Bash<a class="headerlink" href="#how-to-install-git-and-bash" title="Permalink to this heading">#</a></h2>
+<p>Please follow the directions <a class="reference external" href="https://www.makeuseof.com/install-git-git-bash-windows/">here for installing Git Bash on Windows.</a></p>
+</section>
+<section id="how-to-install-github-desktop">
+<h2>How to Install Github Desktop<a class="headerlink" href="#how-to-install-github-desktop" title="Permalink to this heading">#</a></h2>
+<p>If your machine does not already have Github Desktop, <a class="reference external" href="https://docs.github.com/en/desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop">please follow these directions to install it</a>.</p>
+</section>
+<section id="github-repositories">
+<h2>Github Repositories<a class="headerlink" href="#github-repositories" title="Permalink to this heading">#</a></h2>
+<p>A Github repository is a place where you can store your code, files, and each file’s revision history on the Github cloud. Repositories can have multiple collaborators and can be either public or private.</p>
+<p>Copies of Github repositories can be pulled from Github onto your local machine (local repository). You can edit and add changes to your local repository and then push your changes back to the Github cloud (remote repository). Other collaborators can then pull the latest version of the remote repository to add their changes.</p>
+<figure class="align-left" id="beach">
+<a class="reference internal image-reference" href="_images/onboarding_guide_1.png"><img alt="_images/onboarding_guide_1.png" src="_images/onboarding_guide_1.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Relaxing at the beach 🏖</span><a class="headerlink" href="#beach" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span> 
+<span class="n">Image</span><span class="p">(</span><span class="n">url</span><span class="o">=</span> <span class="s2">&quot;onboarding_guide_1.png&quot;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><img src="onboarding_guide_1.png" width="200" height="200"/></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span>\<span class="n">ipykernel_27520</span>\<span class="mf">352233182.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
+
+<span class="nn">~\Miniconda3\envs\jupyter_book\lib\site-packages\IPython\core\interactiveshell.py</span> in <span class="ni">run_line_magic</span><span class="nt">(self, magic_name, line, _stack_depth)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2415</span>                 <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;local_ns&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_local_scope</span><span class="p">(</span><span class="n">stack_depth</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2416</span>             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">builtin_trap</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2417</span>                 <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2418</span>             <span class="k">return</span> <span class="n">result</span>
+<span class="g g-Whitespace">   </span><span class="mi">2419</span> 
+
+<span class="nn">~\Miniconda3\envs\jupyter_book\lib\site-packages\decorator.py</span> in <span class="ni">fun</span><span class="nt">(*args, **kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">230</span>             <span class="k">if</span> <span class="ow">not</span> <span class="n">kwsyntax</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">231</span>                 <span class="n">args</span><span class="p">,</span> <span class="n">kw</span> <span class="o">=</span> <span class="n">fix</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kw</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">232</span>             <span class="k">return</span> <span class="n">caller</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">extras</span> <span class="o">+</span> <span class="n">args</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">233</span>     <span class="n">fun</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span>
+<span class="g g-Whitespace">    </span><span class="mi">234</span>     <span class="n">fun</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span>
+
+<span class="nn">~\Miniconda3\envs\jupyter_book\lib\site-packages\IPython\core\magic.py</span> in <span class="ni">&lt;lambda&gt;</span><span class="nt">(f, *a, **k)</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span>     <span class="c1"># but it&#39;s overkill for just that one bit of state.</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span>     <span class="k">def</span> <span class="nf">magic_deco</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">187</span>         <span class="n">call</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span> 
+<span class="g g-Whitespace">    </span><span class="mi">189</span>         <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+
+<span class="nn">~\Miniconda3\envs\jupyter_book\lib\site-packages\IPython\core\magics\pylab.py</span> in <span class="ni">matplotlib</span><span class="nt">(self, line)</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span>             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available matplotlib backends: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">backends_list</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">99</span>             <span class="n">gui</span><span class="p">,</span> <span class="n">backend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="o">.</span><span class="n">enable_matplotlib</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gui</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">args</span><span class="o">.</span><span class="n">gui</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_show_matplotlib_backend</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gui</span><span class="p">,</span> <span class="n">backend</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span> 
+
+<span class="nn">~\Miniconda3\envs\jupyter_book\lib\site-packages\IPython\core\interactiveshell.py</span> in <span class="ni">enable_matplotlib</span><span class="nt">(self, gui)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3626</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">3627</span><span class="s2">         from IPython.core import pylabtools as pt</span>
+<span class="ne">-&gt; </span><span class="mi">3628</span><span class="s2">         from matplotlib_inline.backend_inline import configure_inline_support</span>
+<span class="g g-Whitespace">   </span><span class="mi">3629</span><span class="s2">         gui, backend = pt.find_gui_and_backend(gui, self.pylab_gui_select)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3630</span><span class="s2"> </span>
+
+<span class="s2">~\Miniconda3\envs\jupyter_book\lib\site-packages\matplotlib_inline\__init__.py in &lt;module&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span><span class="s2"> from . import backend_inline, config  # noqa</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="s2"> __version__ = &quot;0.1.6&quot;  # noqa</span>
+
+<span class="s2">~\Miniconda3\envs\jupyter_book\lib\site-packages\matplotlib_inline</span><span class="se">\b</span><span class="s2">ackend_inline.py in &lt;module&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="s2"> # Distributed under the terms of the BSD 3-Clause License.</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span><span class="s2"> </span>
+<span class="ne">----&gt; </span><span class="mi">6</span><span class="s2"> import matplotlib</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span><span class="s2"> from matplotlib import colors</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span><span class="s2"> from matplotlib.backends import backend_agg</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="standard-markdown">
+<h1>standard Markdown<a class="headerlink" href="#standard-markdown" title="Permalink to this heading">#</a></h1>
+<p><img alt="architecture" src="_images/onboarding_guide_1.png" /></p>
+<p>#html rendoring as markdown - what the difference from above?</p>
+<div class="image-wrapper">
+  <img src="files/onboarding_guide_1.png">
+</div><section id="add-a-local-repository-to-github">
+<h2>Add a Local Repository to Github<a class="headerlink" href="#add-a-local-repository-to-github" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Markdown</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span>\<span class="n">ipykernel_17480</span>\<span class="mf">357331494.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">Markdown</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;Markdown&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>using Markdown
+(’<img alt="_images/onboarding_guide_1.png" src="_images/onboarding_guide_1.png" />’))</p>
+<p>Follow these <a class="reference external" href="https://docs.github.com/en/enterprise-server&#64;3.6/desktop/adding-and-cloning-repositories/adding-a-repository-from-your-local-computer-to-github-desktop">directions</a> if you already have files on your local machine that you would like to turn into a Github Repository.</p>
+<p>First ensure all the files you want to add as a repository are all in the same folder. Use a file path for your local repository that will be easy to replicate across all team members to avoid code breaking due to differing file paths among repository collaborators. We recommend storing local repositories in the following location: <code class="docutils literal notranslate"><span class="pre">&quot;C:\Users\[USER</span> <span class="pre">NAME]\GitHub\[REPOSITORY</span> <span class="pre">NAME]&quot;</span></code></p>
+</section>
+<section id="clone-a-repository-from-github">
+<h2>Clone a Repository from Github<a class="headerlink" href="#clone-a-repository-from-github" title="Permalink to this heading">#</a></h2>
+<p>Follow these <a class="reference external" href="https://docs.github.com/en/desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop#cloning-a-repository">directions</a> if there is an existing remote Github repository that you would like to copy (or clone) to your local machine.</p>
+<p>Whenever you want to collaborate on a Github repo you must ‘map’ the remote repository to the local repository on your machine through cloning. Use a file path for your local repository that will be easy to replicate across all team members to avoid code breaking due to differing file paths among repository collaborators. We recommend storing local repositories in the following location: <code class="docutils literal notranslate"><span class="pre">&quot;C:\Users\[USER</span> <span class="pre">NAME]\GitHub\[REPOSITORY</span> <span class="pre">NAME]&quot;</span></code></p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="miniconda">
+<h1>Miniconda<a class="headerlink" href="#miniconda" title="Permalink to this heading">#</a></h1>
+<section id="how-to-install-miniconda">
+<h2>How to Install Miniconda<a class="headerlink" href="#how-to-install-miniconda" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Navigate to <a class="reference external" href="https://docs.conda.io/projects/miniconda/en/latest/">this link</a> and select the windows 64 bit installation.</p></li>
+<li><p>You should see a Welcome to Miniconda3 popup - select next until you reach the “Chose Install Location” window.</p>
+<ul class="simple">
+<li><p>In accordance with legacy storage of miniconda on the team you should change the destination folder to C:\Users\ [username] \Miniconda3</p>
+<ul>
+<li><p>Make sure the M is capitalized in Miniconda3. This will be important for running legacy code.<br />
+</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>On the next page select the second checkbox and press ‘install’. <br><br />
+</p></li>
+</ol>
+</section>
+<section id="how-to-create-a-conda-virtual-environment">
+<h2>How to Create a Conda Virtual Environment<a class="headerlink" href="#how-to-create-a-conda-virtual-environment" title="Permalink to this heading">#</a></h2>
+<p>Virtual environments in Python and R store specified versions of modules and packages needed to run a particular program. By using virtual environments, you can “freeze” the packages you need in time so that even if packages are updated it will not affect your program. Miniconda is a program that helps to store packages and utilize environments in R and Python.</p>
+<section id="create-a-yaml-file">
+<h3>Create a YAML file<a class="headerlink" href="#create-a-yaml-file" title="Permalink to this heading">#</a></h3>
+<p>YAML files can be used to define virtual environment specifications. You can create a YAML file using any text editor. Upon saving, add the .yml extension.</p>
+<section id="example-1-r-virtual-environment">
+<h4>Example 1: R virtual environment<a class="headerlink" href="#example-1-r-virtual-environment" title="Permalink to this heading">#</a></h4>
+<p>This environment will have all the R packages listed under <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> and will use the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> channel to download the R packages.</p>
+<p><em>Read <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html#what-is-a-conda-channel">here</a> for more information on Conda Channels. See which packages/modules are available on which conda channels <a class="reference external" href="https://anaconda.org/anaconda/repo">here.</a></em></p>
+</section>
+<section id="example-2-python-virtual-environment">
+<h4>Example 2: Python virtual environment<a class="headerlink" href="#example-2-python-virtual-environment" title="Permalink to this heading">#</a></h4>
+<p>This environment will have all the Python modules listed under <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> and will use the default channel to download the Python modules. It will use Python version 3.9.</p>
+<p>For more information and creating YAML files, see <a class="reference external" href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually">how to create a virtual environment .yml file manually</a>.</p>
+</section>
+</section>
+<section id="create-a-virtual-environment-from-a-yaml-file">
+<h3>Create a Virtual Environment From a YAML file<a class="headerlink" href="#create-a-virtual-environment-from-a-yaml-file" title="Permalink to this heading">#</a></h3>
+<p>In this example, we will use the Git Bash terminal to manage virtual conda environments.</p>
+<img src="files/onboarding_guide_4.png" width=500/>
+**In GitBash:**
+<ol class="arabic simple">
+<li><p>Save the .yml file to your directory of choice and then navigate to that directory using the command <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">[file</span> <span class="pre">path]</span></code></p></li>
+<li><p>Create the environment from the <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file:<br />
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">create</span> <span class="pre">-f</span> <span class="pre">environment.yml</span></code></p></li>
+<li><p>Acitvate the new environment:<br />
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">myenv</span></code></p></li>
+<li><p>Verify the new environment was installed:<br />
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">list</span></code></p></li>
+</ol>
+<ul class="simple">
+<li><p>The asterisk next to the transform22 environment in the list of environments indicates that it is the active environment</p></li>
+<li><p>The environment will take the same name as the .yml file</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="running-code-within-an-environment">
+<h1>Running Code Within an Environment<a class="headerlink" href="#running-code-within-an-environment" title="Permalink to this heading">#</a></h1>
+<section id="use-a-batch-file-to-run-code-in-an-environment">
+<h2>Use a Batch File to Run Code in an Environment<a class="headerlink" href="#use-a-batch-file-to-run-code-in-an-environment" title="Permalink to this heading">#</a></h2>
+<section id="create-a-batch-file">
+<h3>Create a batch file<a class="headerlink" href="#create-a-batch-file" title="Permalink to this heading">#</a></h3>
+<p>Batch files will allow you to activate an environment and run code within one file. To run a batch file open any text editor and using the examples below add your directory information, environment name and file name. Then save the file using the .bat extension.</p>
+<p><strong>Example 1: Batch file to run a Python program</strong></p>
+<p>Line one is where your activate.bat file is stored. This file is automatically added during Miniconda installation and should be in the same location as this example.<br />
+Line two activates the ‘transform22’ environment. Replace with the name of your desired environment.<br />
+Line three calls the python file to be ran. Replace with the file path to your python file.<br />
+Line four will then deactivate the environment after the code has run.</p>
+<p><strong>Example 2: Batch file to run an R program</strong></p>
+<p>Line one is where your activate.bat file is stored. This file is automatically added during Miniconda installation and should be in the same location as this example.<br />
+Line two activates the ‘Rtransform23’ environment. Replace with the name of your desired environment.<br />
+Line three calls the R file to be ran. Replace with the file path to your R file.<br />
+Line four will then deactivate the environment after the code has run.</p>
+</section>
+<section id="how-to-run-your-batch-file">
+<h3>How to run your batch file<a class="headerlink" href="#how-to-run-your-batch-file" title="Permalink to this heading">#</a></h3>
+<p><strong>Using The Gitbash terminal</strong></p>
+<p>Although simply double clicking the batch file will run it, we recommend running it from within your Gitbash terminal as this will allow you to see output and error messages when running the code.</p>
+<ol class="arabic simple">
+<li><p>Navigate to the directory containing your batch file:<br />
+<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">[filepath]</span></code></p></li>
+<li><p>Run your batch file:<br />
+<code class="docutils literal notranslate"><span class="pre">./[batch</span> <span class="pre">file</span> <span class="pre">name].bat</span></code></p></li>
+</ol>
+</section>
+<section id="use-task-scheduler-to-run-your-batch-file-automatically">
+<h3>Use Task Scheduler to Run Your Batch File Automatically<a class="headerlink" href="#use-task-scheduler-to-run-your-batch-file-automatically" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Open windows task scheduler. Under the ‘Action’ menu select ‘Create Task’.<br></p><br />
+</p></li>
+<li><p>In the task popup, enter a name for the job and select the check box for ‘Run with hightest privileges’.<br></p><br />
+</p></li>
+<li><p>Under ‘Triggers’, set the desired time and frequency for running the job.<br></p>
+</p></li>
+<li><p>Under ‘Actions’, add the path to the batch file or script for the task to run. In the ‘Start in’ box, add the path to the parent folder where the script is stored (excluding the actual file name). Leave the final backslash.<br></p>
+</p></li>
+<li><p>Close windows task scheduler.</p></li>
+</ol>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="appendix">
+<h1>Appendix<a class="headerlink" href="#appendix" title="Permalink to this heading">#</a></h1>
+<section id="jupyter-lab">
+<h2>Jupyter Lab<a class="headerlink" href="#jupyter-lab" title="Permalink to this heading">#</a></h2>
+<p>Jupyter Lab is a useful tool for editing and running both R and Python Code. Although not required for automating data pipelines, it is a great way to run code within various Conda environments.</p>
+<section id="launch-jupyter-lab-within-an-environment">
+<h3>Launch Jupyter Lab Within an Environment<a class="headerlink" href="#launch-jupyter-lab-within-an-environment" title="Permalink to this heading">#</a></h3>
+<p><strong>Option 1: In GitBash</strong></p>
+<ol class="arabic simple">
+<li><p>Acitvate the new environment:<br />
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">myenv</span></code></p></li>
+<li><p>Manually install jupyter into your new environment. This is required to launch jupyter lab from that environment:<br />
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">jupyter</span></code></p></li>
+<li><p>Navigate to your directory that has the python files you want to work in:<br />
+ex. <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">C:/Users/ekp0303/Github/redcap_api_test</span></code><br />
+ <br>
+<em>In this example “(Caitlin_edits)” is the current Git branch you are in for that repo</em></p></li>
+<li><p>Launch Jupyter Lab:<br />
+<code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code></p></li>
+</ol>
+<p><strong>Option 2: In the anaconda navigator</strong></p>
+<ol class="arabic simple">
+<li><p>Open Conda navigator (automatically downloaded with miniconda).</p></li>
+<li><p>Select the environment you want in the top left drop down menu.</p></li>
+<li><p>Launch Jupyter lab. <em>If Jupyter labs is not installed yet on the environment you selected, the button will say “install” instead of “launch”. Install Jupyter lab, then launch it.</em></p></li>
+</ol>
+</section>
+<section id="use-multiple-environments-within-one-jupyter-lab-instance">
+<h3>Use multiple environments within one Jupyter lab instance<a class="headerlink" href="#use-multiple-environments-within-one-jupyter-lab-instance" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">nb_conda_kernels</span></code> module allows you to select what environment you want to run your kernel in from within Jupyter labs. <a class="reference external" href="https://github.com/Anaconda-Platform/nb_conda_kernels">Read the documentation here.</a></p></li>
+<li><p>You must launch Jupyter labs from gitbash to use <code class="docutils literal notranslate"><span class="pre">nb_conda_kernel</span></code> features</p></li>
+</ul>
+<p><strong>In GitBash</strong></p>
+<ol class="arabic simple">
+<li><p>In Gitbash install nb_conda_kernels from within your ‘base’ environment:<br />
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">base</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">nb_conda_kernels</span></code></p></li>
+<li><p>Navigate to your directory that has the python files you want to work in:<br />
+ex. <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">C:/Users/ekp0303/Github/redcap_api_test</span></code></p></li>
+<li><p>Launch Jupyter Lab:<br />
+<code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code>. <em>You should now see a kernel for each environment.</em><br></p><br />
+</p></li>
+<li><p>If you want to run a file with a certain environment, open the program you want to run. From within the program, right click and select “Create Console for Editor”.
+</p></li>
+<li><p>Select the kernel in the environment you want.
+</p></li>
+<li><p>If an environment is not showing in jupyter labs, activate that environment in gitbash and install ipykernel from within that environment.<br />
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-n</span> <span class="pre">python_env</span> <span class="pre">ipykernel</span></code></p></li>
+</ol>
+</section>
+<section id="faster-loading-of-r-environments">
+<h3>Faster loading of R environments<a class="headerlink" href="#faster-loading-of-r-environments" title="Permalink to this heading">#</a></h3>
+<p>Initializing a Conda R environment for the first time can be time consuming. As a workaround, run the following code in sequential order from your base environment in Gitbash:</p>
+<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">update</span> <span class="pre">-n</span> <span class="pre">base</span> <span class="pre">conda</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-n</span> <span class="pre">base</span> <span class="pre">conda-libmamba-solver</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">config</span> <span class="pre">--set</span> <span class="pre">solver</span> <span class="pre">libmamba</span></code></p>
+<p>Now you should be able to set up an environment from a .yml file faster.</p>
+<p>Source: See response from <a class="reference external" href="https://stackoverflow.com/questions/53250933/conda-takes-20-minutes-to-solve-environment-when-package-is-already-installed">Mike Battaglie</a><br />
+<em>Conda will make this the default mvoing forward so this will hopefully not be necessary soon</em></p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tools for Data Pipeline Automation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#git-bash">Git Bash</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-install-git-and-bash">How to Install Git and Bash</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-install-github-desktop">How to Install Github Desktop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github-repositories">Github Repositories</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-markdown">standard Markdown</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-local-repository-to-github">Add a Local Repository to Github</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-a-repository-from-github">Clone a Repository from Github</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#miniconda">Miniconda</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-install-miniconda">How to Install Miniconda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-create-a-conda-virtual-environment">How to Create a Conda Virtual Environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-yaml-file">Create a YAML file</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-r-virtual-environment">Example 1: R virtual environment</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-python-virtual-environment">Example 2: Python virtual environment</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-virtual-environment-from-a-yaml-file">Create a Virtual Environment From a YAML file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#running-code-within-an-environment">Running Code Within an Environment</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-a-batch-file-to-run-code-in-an-environment">Use a Batch File to Run Code in an Environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-batch-file">Create a batch file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-run-your-batch-file">How to run your batch file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-task-scheduler-to-run-your-batch-file-automatically">Use Task Scheduler to Run Your Batch File Automatically</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix">Appendix</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-lab">Jupyter Lab</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-jupyter-lab-within-an-environment">Launch Jupyter Lab Within an Environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-multiple-environments-within-one-jupyter-lab-instance">Use multiple environments within one Jupyter lab instance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#faster-loading-of-r-environments">Faster loading of R environments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
